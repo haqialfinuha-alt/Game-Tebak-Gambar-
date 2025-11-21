@@ -2,31 +2,106 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Tebak Gambar Sederhana</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bisa Biologi - Mulai Kuis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <style>
-        /* CSS Sederhana untuk tampilan */
-        body { font-family: sans-serif; text-align: center; }
-        #game-container { max-width: 500px; margin: 20px auto; }
-        #question-image { max-width: 100%; height: auto; border: 3px solid #333; }
-        #choices-area button { padding: 10px; margin: 5px; font-size: 16px; cursor: pointer; }
+        /* CSS untuk Desain Modern dan Animasi */
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Latar Belakang Blur Lembut */
+            background-image: url('biotech_bg.jpg'); /* GANTI dengan URL gambar biologi Anda */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Overlay gelap */
+            backdrop-filter: blur(5px); /* Efek Blur */
+        }
+        #main-card {
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95); /* Sedikit Transparan */
+            max-width: 450px;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #start-quiz-button {
+            transition: transform 0.2s;
+        }
+        #start-quiz-button:hover {
+            transform: scale(1.02);
+        }
     </style>
 </head>
 <body>
-    <div id="game-container">
-        <h1>TEBAK GAMBAR APA INI?</h1>
-        <p>Skor: <span id="score-display">0</span> | Soal ke: <span id="q-index-display">1</span></p>
-
-        <div id="image-area">
-            <img id="question-image" src="" alt="Gambar Soal">
-        </div>
-
-        <div id="choices-area">
+    <div class="container d-flex justify-content-center">
+        <div id="main-card" class="card p-4 shadow-lg rounded-4">
+            <div class="card-header bg-white border-0 text-center">
+                <h1 class="text-success fw-bold">Bisa Biologi 🧬</h1>
+                <p class="text-muted mb-0">Kuis Biologi Kelas X</p>
             </div>
-
-        <p id="feedback-message"></p>
-        <button id="next-button" style="display: none;">Soal Selanjutnya »</button>
+            <div class="card-body">
+                <form id="player-form">
+                    <div class="mb-3">
+                        <label for="nama" class="form-label text-secondary">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="nama" placeholder="Cth: Siti Aisyah" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label text-secondary">Kelas</label>
+                        <select class="form-select" id="kelas" required>
+                            <option value="" disabled selected>Pilih Kelas Anda</option>
+                            <option value="X A">X A</option>
+                            <option value="X B">X B</option>
+                            <option value="X C">X C</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="absen" class="form-label text-secondary">Nomor Absen</label>
+                        <input type="number" class="form-control" id="absen" min="1" placeholder="Cth: 15" required>
+                    </div>
+                    
+                    <button type="submit" id="start-quiz-button" class="btn btn-success btn-xl w-100 fw-bold">
+                        Mulai Kuis
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <script src="game_logic.js"></script>
+    <script>
+        document.getElementById('player-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nama = document.getElementById('nama').value.trim();
+            const kelas = document.getElementById('kelas').value;
+            const absen = document.getElementById('absen').value.trim();
+            
+            // 1. Validasi
+            if (!nama || !kelas || !absen) {
+                alert('Nama, Kelas, dan No. Absen wajib diisi!');
+                return;
+            }
+
+            // 2. Simpan Data ke localStorage
+            const playerData = { nama, kelas, absen };
+            localStorage.setItem('currentPlayer', JSON.stringify(playerData));
+
+            // 3. Arahkan ke halaman pemilihan bab
+            window.location.href = 'bab.html';
+        });
+    </script>
 </body>
 </html>
