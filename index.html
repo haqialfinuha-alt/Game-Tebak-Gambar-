@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tebak Gambar Sederhana</title>
+    <style>
+        /* CSS Sederhana untuk tampilan */
+        body { font-family: sans-serif; text-align: center; }
+        #game-container { max-width: 500px; margin: 20px auto; }
+        #question-image { max-width: 100%; height: auto; border: 3px solid #333; }
+        #choices-area button { padding: 10px; margin: 5px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>TEBAK GAMBAR APA INI?</h1>
+        <p>Skor: <span id="score-display">0</span> | Soal ke: <span id="q-index-display">1</span></p>
+
+        <div id="image-area">
+            <img id="question-image" src="" alt="Gambar Soal">
+        </div>
+
+        <div id="choices-area">
+            </div>
+
+        <p id="feedback-message"></p>
+        <button id="next-button" style="display: none;">Soal Selanjutnya »</button>
+    </div>
+
+    <script src="game_logic.js"></script>
+</body>
+</html>
